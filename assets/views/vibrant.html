@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Chargement de vibrant</title>
+
+    <script id="script" src="vibrant.js"></script>
+
+</head>
+<body>
+
+<p>webview JS</p>
+
+
+<script type="text/javascript">
+
+    document.addEventListener("message", function(data) {
+
+        var imgSrc = data.data
+        var img = document.createElement('img');
+        img.setAttribute("src", imgSrc)
+
+        img.addEventListener('load', () => {
+
+            Vibrant.from(imgSrc).getPalette(function(err, palette) {
+
+                window.postMessage(JSON.stringify(palette), "*")
+            })
+        })
+    })
+
+</script>
+
+</body>
+</html>
